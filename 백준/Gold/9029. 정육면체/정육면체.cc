@@ -1,46 +1,49 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-const int INF = 1987654321;
+int cube[201][201][201]={0};
 
-int T, W, L, H;
-int dp[222][222][222];
-
-int Cut(int w, int l, int h) {
-	if (w == l && l == h) return 1;
-	if (w == 1 || l == 1 || h == 1) return w * l * h;
-
-	int& ret = dp[w][l][h];
-	if (ret != -1) return ret;
-
-	int cut_w = INF; // w 에 수직
-	int cut_l = INF; // l 에 수직
-	int cut_h = INF; // h 에 수직
-	for (int i = 1; i < w / 2 + 1; ++i)
-		cut_w = min(cut_w, Cut(i, l, h) + Cut(w - i, l, h));
-	for (int i = 1; i < l / 2 + 1; ++i)
-		cut_l = min(cut_l, Cut(w, i, h) + Cut(w, l - i, h));
-	for (int i = 1; i < h / 2 + 1; ++i)
-		cut_h = min(cut_h, Cut(w, l, i) + Cut(w, l, h - i));
-
-	ret = min({ cut_w, cut_l, cut_h });
-	dp[w][l][h] = ret;
-	dp[w][h][l] = ret;
-	dp[l][w][h] = ret;
-	dp[l][h][w] = ret;
-	dp[h][w][l] = ret;
-	dp[h][l][w] = ret;
-
-	return ret;
+void make_cube() {
+    for (int i = 1; i <= 200; i++) {
+        for (int j = 1; j <= 200; j++) {
+            for (int k = 1; k <= 200; k++) {
+                if(cube[i][j][k] == 0){
+                    if (i == j && j == k) cube[i][j][k] = 1; //초기화
+                    else if (j % i == 0 && k % i == 0) {
+                        cube[i][j][k] = cube[i][k][j] = cube[j][i][k] = cube[j][k][i] = cube[k][i][j] = cube[j][k][i] = (j / i) * (k / i);
+                        continue;
+                    }
+                    else{
+                        int cnt = 1000000;
+                        for (int w = 1; w <= i / 2; w++) {
+                            int cnt_tmp = cube[w][j][k] + cube[i - w][j][k];
+                            if (cnt_tmp < cnt) cnt = cnt_tmp;
+                        }    
+                        for (int w = 1; w <= j / 2; w++) {
+                            int cnt_tmp = cube[i][w][k] + cube[i][j - w][k];
+                            if (cnt_tmp < cnt) cnt = cnt_tmp;
+                        }
+                        for (int w = 1; w <= k / 2; w++) {
+                            int cnt_tmp = cube[i][j][w] + cube[i][j][k - w];
+                            if (cnt_tmp < cnt) cnt = cnt_tmp;
+                        }
+                        cube[i][j][k] = cnt;
+                    }
+                    cube[i][k][j] = cube[j][i][k] = cube[j][k][i] = cube[k][i][j] = cube[j][k][i]=cube[i][j][k];
+                }   
+            }       
+        }                
+    }
 }
 
-int main() {ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
-
-memset(dp, -1, sizeof(dp));
-cin >> T;
-while (T--) {
-	cin >> W >> L >> H;
-	cout << Cut(W, L, H) << '\n';
-}
-
-return 0;
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(nullptr);
+    //freopen("cube.inp", "r", stdin);
+    //freopen("cube.out", "w", stdout);
+    int test_case; cin >> test_case;
+    make_cube();
+    while (test_case--) {
+        int w, l, h;
+        cin >> w >> l >> h;
+        cout << cube[w][l][h] << '\n';
+    }
 }
