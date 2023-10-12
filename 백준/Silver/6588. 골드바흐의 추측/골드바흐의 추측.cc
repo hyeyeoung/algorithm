@@ -10,7 +10,7 @@ void prime() { // n은 시작점 m은 끝점.. for문은 2부터 시작하되 �
 	}
 }
 int result(int n) {
-	for (int i = 2; i <= n/2 ; i++) {
+	for (int i = 2; i <= n ; i++) {
 		if (check[i] == false && check[n - i] == false) 
 			return i;
 	}
