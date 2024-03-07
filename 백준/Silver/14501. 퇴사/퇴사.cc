@@ -1,18 +1,20 @@
 #include <iostream>
 using namespace std;
-// dp
+pair<int, int> arr[20] = {};
+int ans = 0;
+int n;
+void go(int day, int sum){
+    if(day == n){
+        if(ans < sum) ans = sum;
+        return;
+    }
+    if(day > n) return;
+    go(day+arr[day].first, sum+arr[day].second);
+    go(day+1, sum);
+}
 int main(){
-    int n; cin >> n;
-    pair <int, int> arr[21] = {};
-    int result[21] = {};
-    for(int i = 1; i<=n; i++){
-        cin >> arr[i].first >> arr[i].second;
-    }
-    for(int i = n; i> 0; i--) {
-        if(i + arr[i].first -1 > n) result[i] = result[i+1];
-        else{
-            result[i] = result[i+1] > (arr[i].second + result[i + arr[i].first]) ? result[i + 1] : (arr[i].second + result[i + arr[i].first]);
-        }
-    }
-    cout << result[1];
+    cin >> n;
+    for(int i = 0;i<n; i++) cin >> arr[i].first >> arr[i].second;
+    go(0, 0);
+    cout << ans;
 }
