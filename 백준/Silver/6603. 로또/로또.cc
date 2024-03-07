@@ -1,25 +1,26 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
-
+vector<int> b;
+void go(vector <int> &a, int i, int cnt){
+    if(cnt == 6){
+        for(int i = 0; i<6; i++) cout << b[i]<<' ';
+        cout <<'\n';
+        return;
+    }
+    if(i == a.size()) return;
+    b.push_back(a[i]);
+    go(a, i+1, cnt+1);
+    b.pop_back();
+    go(a, i+1, cnt);
+}
 int main(){
     while(true){
         int n; cin >> n;
-        if(n==0) break;
-        vector <int> a(n); // n의 크기 벡터 선언
-        vector <int> b(n);
-        for(int i = 0; i < n; i++) {
-            cin >> a[i];
-            if(i<6) b[i] = 1;
-            else b[i] = 0;
-        }
-        do{
-            for(int i = 0; i<n;i++){
-                if(b[i] == 1) cout << a[i] <<" ";
-            }
-            cout << '\n';
-        }while(prev_permutation(b.begin(), b.end()));
-        cout<<'\n';
+        if(n == 0) break;
+        vector <int> a(n);
+        for(int i = 0; i<n; i++) cin >> a[i];
+        go(a,0,0);
+        cout <<'\n';
     }
 }
