@@ -1,23 +1,20 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
-int arr[10] = {0};
-bool b[10] = {0};
-// 오름차순 수열 구하기...
-void go(int index, int start, int n, int m){
-    if(index == m+1){ // 종료 조건
-        for(int j = 1; j<= m; j++) cout << arr[j] <<" ";
-        cout << '\n';
-        return;
-    }
-    for(int j = start; j<=n; j++){
-        if(b[j]) continue;
-        b[j] = true; arr[index] = j;
-        go(index+1, j+1, n, m);
-        b[j] = false;
-    }
-}
 
 int main(){
-    int n , m; cin >> n >> m;
-    go(1,1,n,m);
+    int n, m; cin >> n >> m;
+    int arr[10];
+    int b[10]={0};
+
+    for(int i = 0; i<n; i++){
+        if(i<m) b[i] = 1;
+        arr[i] = i+1;
+    }
+    do{
+        for(int i = 0; i<n; i++){
+            if(b[i] == 1) cout << arr[i]<<" ";
+        }
+        cout <<'\n';
+    }while(prev_permutation(b, b+n));
 }
