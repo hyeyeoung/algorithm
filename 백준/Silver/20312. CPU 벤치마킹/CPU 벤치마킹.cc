@@ -5,23 +5,24 @@ using namespace std;
 int k = 1000000000 + 7;
 
 int main(){
+    cin.tie(0); cout.tie(0);
+    ios::sync_with_stdio(false);
     int n; 
     cin >> n;
-    vector <long long> arr[n];
+    vector <long long> arr;
     long long sum = 0;
     for(int i = 0; i<n-1; i++) {
         long long a; cin >> a;
-        arr[i].push_back(a);
-        sum += (a % k);
-        if(i == 0) continue;
+        if(i == 0){
+            arr.push_back(a);
+            sum += (a % k);
+            continue;
+        }
         else{
-            for (int j = 0; j < arr[i-1].size(); j++){
-                long long tmp = (arr[i-1][j] * a) % k;
-                sum+= (tmp % k);
-                arr[i].push_back(tmp);
-            }
+            int tmp = (a * arr[i-1] + a)%k;
+            arr.push_back(tmp);
+            sum += (tmp % k);
         }
     }
     cout << sum % k;
-
 }
