@@ -3,7 +3,7 @@
 #include <queue>
 #include <algorithm>
 using namespace std;
-bool COMP(pair< long, long> a, pair<long, long> b){
+bool COMP(pair< int, int> a, pair<int, int> b){
     if(a.second == b.second){
         return a.first > b.first;
         }
@@ -13,13 +13,13 @@ bool COMP(pair< long, long> a, pair<long, long> b){
 int main(){
     cin.tie(0); cout.tie(0); 
     ios::sync_with_stdio(false);
-    priority_queue <pair<long, long>, vector<pair<long,long>>, greater<pair<long,long>>> arr;
+    priority_queue <pair<int, int>, vector<pair<int,int>>, greater<pair<int,int>>> arr;
     
     int T;
     cin >> T;
 
     while(T--){
-        long proc;
+        int proc;
         cin >> proc;
         if(proc==0){
             if (arr.size() == 0) cout << "0" << '\n';
@@ -29,7 +29,7 @@ int main(){
             }
         }
         else{
-            long tmpn = proc < 0 ? (proc * -1) : proc; 
+            int tmpn = proc < 0 ? (proc * -1) : proc; 
             arr.push({tmpn, proc});
         }
     }
