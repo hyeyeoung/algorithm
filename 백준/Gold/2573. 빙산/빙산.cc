@@ -2,22 +2,19 @@
 #include <queue>
 #include <cstring>
 using namespace std;
-int n, m;
+int n, m, res = 0;
 int arr[301][301][2] = {};
 bool visited[301][301] = {};
-bool checkICE = true;
 int dx[4] = {0, 0, -1, 1};
 int dy[4] = {1, -1, 0, 0};
-// 1. 빙산이 두 쪽이 났는지 아닌지 판단한다,
-// 2. 두 쪽이 안 났다면 위아래 계산
-bool s2573_1(){
+int s2573_1(){
     memset(visited, false, sizeof(visited));
     int cnt = 0;
     for(int i = 0; i<n; i++){
         for(int j = 0; j<m; j++){
             if(arr[i][j][0] != 0 && !visited[i][j]){
                 cnt++;
-                if(cnt > 1) return false;
+                if(cnt > 1) return 0;
                 queue <pair<int, int>> q;
                 q.push({i, j});
                 visited[i][j] = true;
@@ -51,8 +48,8 @@ bool s2573_1(){
             arr[i][j][1] = 0;
         }
     }
-    if(countICE == n*m) checkICE = false;
-    return true;
+    if(countICE == n*m) return -1;
+    return 1;
 } // 1. 빙산 개수 확인
 int main(){
     cin >> n >> m;
@@ -61,12 +58,14 @@ int main(){
             cin >> arr[i][j][0];
         }
     }
-    int res = 0;
     while(1){
-        bool flag = s2573_1();
-        if(!flag || !checkICE) break;
+        int flag = s2573_1();
+        if(flag == 0) break;
+        if(flag == -1) {
+            cout << 0;
+            return 0;
+        }
         res++;
     }
-    if(checkICE) cout << res;
-    else cout << 0;
+    cout << res;
 }
