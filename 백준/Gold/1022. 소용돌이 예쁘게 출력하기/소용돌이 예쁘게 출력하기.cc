@@ -20,19 +20,16 @@ int main(){
             idx = (idx+1) % 4;
             if(idx == 0 || idx == 2) cnt++;
         }
-        if(Vi >= r1 && Vi <= r2 && Vj >= c1 && Vj <= c2)
+        if(Vi >= r1 && Vi <= r2 && Vj >= c1 && Vj <= c2){
             arr[Vi - r1][Vj - c1] = n;
+            m = m < n ? n : m;
+        }
         Vi = Vi + dx[idx];
         Vj = Vj + dy[idx];
         n++;
         real_cnt++;
     }
     
-    for(int i = 0; i < r2 - r1 + 1; i++){
-        for(int j = 0; j < c2 - c1 + 1; j++) 
-            m = m < arr[i][j] ? arr[i][j] : m;
-    }
-
     for(int i = 0; i < r2 - r1 + 1; i++){
         for(int j = 0; j < c2 - c1 + 1; j++) {
             cout.width(to_string(m).size());
