@@ -1,15 +1,11 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
-
 int main(){
     int n;
-    cin >> n;
-
     int arr[27] = {};
-
+    cin >> n;
     for(int i = 0; i<n; i++){
-        string str;
+        char str[31];
         cin >> str;
         arr[str[0] - 'a']++;
     }
