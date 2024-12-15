@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # print(arr)
     i, j =  0, 1
     cnt = 0
-    while i <= j:
+    while True:
         if 0 <= i < len(arr) and 0 <= j < len(arr):
             sum = arr[j] - arr[i]
             if sum == m:
@@ -20,5 +20,4 @@ if __name__ == '__main__':
             elif sum < m: j += 1
             elif sum > m: i += 1
         else: break
-        if i == j: j += 1
     print(cnt)
