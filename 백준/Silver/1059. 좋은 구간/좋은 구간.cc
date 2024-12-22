@@ -1,41 +1,6 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
-void swap(int &a, int &b)
-{
-    int tmp = a;
-    a = b;
-    b = tmp;
-} // 값 변환 
 
-void Heap(vector <int> &arr, int l, int cur)
-{
-    int largest = cur;
-    int right = cur * 2 + 1, left = cur * 2;
-
-    if(right <= l && arr[right] > arr[largest]) largest = right;
-    if(left <= l && arr[left] > arr[largest]) largest = left;
-
-    // 최대힙이 아닐때 수행
-    if(largest != cur)
-    {
-        swap(arr[cur], arr[largest]);
-        Heap(arr, l ,largest);
-    }
-}
-
-void HeapSort(vector <int> &arr, int l)
-{
-    for(int i = l/2; i >= 1; i--){
-        Heap(arr,l, i);
-    }
-
-    for(int i = l; i>= 2; i--)
-    {
-        swap(arr[1], arr[i]);
-        Heap(arr,i-1, 1); // 1부터 다시 힙을 만듦
-    }
-} // HeapSort 다시 공부
 int bns(int l, int n, vector<int> &arr){
     int idx = 0;
     for(int i = 1; i <= l; i++){
@@ -59,6 +24,6 @@ int main(){
         cin >> arr[i];
     }
     cin >> n;
-    HeapSort(arr, l); // 정렬 수행
+    sort(arr.begin(), arr.end());
     cout << bns(l, n, arr); // 정답
 }
