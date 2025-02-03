@@ -1,19 +1,32 @@
 #include <iostream>
-int arr[10]={0};
-bool b[10] = {0};
-void go(int index, int n, int m){
-    if(index == m+1) {
-        for(int i = 1; i <= m; i++) std:: cout << arr[i] <<" ";
-        std::cout <<'\n';
+using namespace std;
+// 재귀 풀이 : 시간이 많이 걸림.
+bool c[10];
+int a[10]; 
+int n, m;
+void go(int index)
+{
+    if(index == m)
+    {
+        for(int i = 0; i < m; i++)
+        {
+            cout << a[i] << " ";
+        }
+        cout << '\n';
         return;
     }
-    for(int i = 1; i <= n; i++){
-        arr[index] = i;
-        go(index+1, n, m);
+    for(int i = 1; i <= n; i++)
+    {
+        // if(c[i])
+        //     continue;
+        c[i] = true;
+        a[index] = i;
+        go(index+1);
+        c[i] = false; 
     }
 }
-
-int main(){
-    int n, m; std::cin >> n >> m;
-    go(1, n, m);
+int main()
+{
+    cin >> n >> m;
+    go(0);
 }
